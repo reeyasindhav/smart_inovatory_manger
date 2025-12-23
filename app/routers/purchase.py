@@ -4,6 +4,8 @@ from sqlalchemy.orm import Session
 from app.database import SessionLocal
 from app.schemas.purchase import PurchaseCreate
 from app.services.purchase_service import purchase_inventory
+from app.services.purchase_order_service import generate_purchase_order
+
 
 router = APIRouter(prefix="/purchase", tags=["Purchase"])
 
@@ -35,3 +37,23 @@ def purchase_item(
         }
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e))
+
+
+
+@router.get("/suggest/{inventory_item_id}")
+def suggest_purchase_order(
+    inventory_item_id: int,
+    window: int = 28,
+    alpha: float = 0.3,
+    lead_time_days: int = 3,
+    safety_factor: float = 1.3,
+    db: Session = Depends(get_db)
+):
+    return generate_purchase_order(
+        db=db,
+        inventory_item_id=inventory_item_id,
+        window=window,
+        alpha=alpha,
+        lead_time_days=lead_time_days,
+        safety_factor=safety_factor
+    )

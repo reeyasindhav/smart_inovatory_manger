@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SmartResto - Sales Reports</title>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#ea2a33",
+                        "background-light": "#f8f6f6",
+                        "background-dark": "#211111",
+                    },
+                    fontFamily: {
+                        "display": ["Be Vietnam Pro", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #e5dcdc;
+            border-radius: 3px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #d1c5c5;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-[#181111] h-screen flex overflow-hidden">
+<aside class="w-64 bg-white border-r border-[#f4f0f0] flex-shrink-0 flex flex-col justify-between h-full z-20 hidden lg:flex">
+<div class="flex flex-col gap-4 p-4">
+<div class="flex gap-3 items-center mb-6">
+<div class="bg-center bg-no-repeat bg-cover rounded-full size-10 bg-primary/10" data-alt="Restaurant logo abstract shape" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDYBO1FomNHkyfC8hh1VqDxUPQnkjdH7nXiQGJ8I2H18aJFTCpIO4YOWiLmrxA0fYDvhP4ogxAN29lie3Q4AhvEEc3y36IiiEE5aFwk9ApBeJno32sd1muJhxFRVxTEjKOUFEnTnJbRY_6A67c_BMihPLmzDAuEBk6oxEOHsVbEntF661wkbea7WEnsJ2jHX5zia5I-55-vHnUpzeSRqTIcDnN1Mv8uR7tBC_Rsgn26W6392_vB-yXZ0mh5nrYpNh0MqPXJRRu9b2Hb");'></div>
+<div class="flex flex-col">
+<h1 class="text-[#181111] text-base font-bold leading-normal">SmartResto</h1>
+<p class="text-[#886364] text-xs font-normal leading-normal">Manager Portal</p>
+</div>
+</div>
+<div class="flex flex-col gap-2">
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gray-50 transition-colors group" href="#">
+<span class="material-symbols-outlined text-[#886364] group-hover:text-primary">dashboard</span>
+<p class="text-[#181111] text-sm font-medium">Dashboard</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gray-50 transition-colors group" href="#">
+<span class="material-symbols-outlined text-[#886364] group-hover:text-primary">inventory_2</span>
+<p class="text-[#181111] text-sm font-medium">Inventory</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg bg-primary text-white shadow-md shadow-primary/20" href="#">
+<span class="material-symbols-outlined">analytics</span>
+<p class="text-white text-sm font-medium">Sales Reports</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gray-50 transition-colors group" href="#">
+<span class="material-symbols-outlined text-[#886364] group-hover:text-primary">group</span>
+<p class="text-[#181111] text-sm font-medium">Staff</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gray-50 transition-colors group" href="#">
+<span class="material-symbols-outlined text-[#886364] group-hover:text-primary">settings</span>
+<p class="text-[#181111] text-sm font-medium">Settings</p>
+</a>
+</div>
+</div>
+<div class="p-4 border-t border-[#f4f0f0]">
+<div class="bg-gradient-to-br from-primary/5 to-primary/10 p-4 rounded-xl border border-primary/10">
+<div class="flex items-center gap-2 mb-2">
+<span class="material-symbols-outlined text-primary text-sm">auto_awesome</span>
+<p class="text-primary text-xs font-bold uppercase tracking-wider">AI Insight</p>
+</div>
+<p class="text-xs text-[#554444] leading-relaxed">Burger sales spike on Fridays. Consider increasing patty inventory by 15%.</p>
+</div>
+</div>
+</aside>
+<main class="flex-1 flex flex-col h-full overflow-hidden relative">
+<header class="flex items-center justify-between whitespace-nowrap bg-white border-b border-b-[#f4f0f0] px-8 py-3 shrink-0 z-10">
+<div class="flex items-center gap-8 w-full max-w-2xl">
+<div class="lg:hidden">
+<span class="material-symbols-outlined">menu</span>
+</div>
+<label class="hidden md:flex flex-col w-full max-w-sm h-10">
+<div class="flex w-full flex-1 items-stretch rounded-lg h-full bg-[#f4f0f0] group focus-within:ring-2 focus-within:ring-primary/20 transition-all">
+<div class="text-[#886364] flex items-center justify-center pl-3">
+<span class="material-symbols-outlined text-[20px]">search</span>
+</div>
+<input class="w-full bg-transparent border-none text-sm text-[#181111] focus:ring-0 placeholder:text-[#886364] px-3" placeholder="Search reports, items..."/>
+</div>
+</label>
+</div>
+<div class="flex items-center gap-4">
+<button class="relative flex items-center justify-center size-10 rounded-full hover:bg-[#f4f0f0] text-[#181111] transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-2 right-2 size-2 bg-primary rounded-full border border-white"></span>
+</button>
+<div class="h-8 w-px bg-[#e5dcdc]"></div>
+<div class="flex items-center gap-3 pl-2">
+<div class="text-right hidden sm:block">
+<p class="text-sm font-bold text-[#181111]">Jane Doe</p>
+<p class="text-xs text-[#886364]">Manager</p>
+</div>
+<div class="bg-center bg-no-repeat bg-cover rounded-full size-10 border-2 border-white shadow-sm" data-alt="User profile picture" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBTQJgAdsN7YP1Srku6BIWzdcU4J5HWcAMAvA2BIJUTVqbYOGQSrR_RVd61NPtPlscWrveki9In9PEFDoA2vepKFRwUoVPHF2rd5mqN-FHI799CiLVn4IYgyUdTU-n9JQbTtoQ8swQYneVEysVEnnEwPUvQXWk7sEof1sD9o3rMWnbPY0NllVwbtHV0muuKp6oS7W5AZ9ymxeLS69KbVKFXMAtNgpRTsaihmkv7Ltq0DxC_y9RPLoxzYZmEc4Ia7R9FISLHUb5fE5x8");'></div>
+</div>
+</div>
+</header>
+<div class="flex-1 overflow-y-auto bg-background-light p-6 md:p-8">
+<div class="max-w-[1200px] mx-auto flex flex-col gap-6">
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+<div>
+<h1 class="text-[#181111] text-3xl font-black tracking-tight mb-1">Sales Reports</h1>
+<p class="text-[#886364] text-sm md:text-base">Overview of your restaurant's performance and financial health.</p>
+</div>
+<div class="flex flex-wrap gap-3">
+<button class="flex items-center gap-2 px-4 py-2.5 bg-white border border-[#e5dcdc] rounded-lg text-sm font-semibold text-[#181111] hover:bg-gray-50 shadow-sm transition-all">
+<span class="material-symbols-outlined text-[20px]">calendar_today</span>
+                            Oct 12 - Oct 19
+                        </button>
+<button class="flex items-center gap-2 px-4 py-2.5 bg-white border border-[#e5dcdc] rounded-lg text-sm font-semibold text-[#181111] hover:bg-gray-50 shadow-sm transition-all">
+<span class="material-symbols-outlined text-[20px]">filter_list</span>
+                            Filters
+                        </button>
+<button class="flex items-center gap-2 px-4 py-2.5 bg-[#181111] text-white rounded-lg text-sm font-bold hover:bg-[#2a1e1e] shadow-lg shadow-black/10 transition-all">
+<span class="material-symbols-outlined text-[20px]">download</span>
+                            Export
+                        </button>
+</div>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+<div class="bg-white p-5 rounded-xl shadow-sm border border-transparent hover:border-primary/10 transition-all group">
+<div class="flex justify-between items-start mb-2">
+<p class="text-[#886364] text-sm font-medium">Total Revenue</p>
+<div class="bg-green-50 text-green-700 px-2 py-0.5 rounded text-xs font-bold flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">trending_up</span> 12%
+                            </div>
+</div>
+<p class="text-3xl font-bold text-[#181111] mb-1">₹12,450</p>
+<p class="text-xs text-[#886364]">vs. previous 7 days</p>
+</div>
+<div class="bg-white p-5 rounded-xl shadow-sm border border-transparent hover:border-primary/10 transition-all group">
+<div class="flex justify-between items-start mb-2">
+<p class="text-[#886364] text-sm font-medium">Total Orders</p>
+<div class="bg-green-50 text-green-700 px-2 py-0.5 rounded text-xs font-bold flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">trending_up</span> 5%
+                            </div>
+</div>
+<p class="text-3xl font-bold text-[#181111] mb-1">340</p>
+<p class="text-xs text-[#886364]">vs. previous 7 days</p>
+</div>
+<div class="bg-white p-5 rounded-xl shadow-sm border border-transparent hover:border-primary/10 transition-all group">
+<div class="flex justify-between items-start mb-2">
+<p class="text-[#886364] text-sm font-medium">Avg Order Value</p>
+<div class="bg-red-50 text-red-700 px-2 py-0.5 rounded text-xs font-bold flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">trending_down</span> 2%
+                            </div>
+</div>
+<p class="text-3xl font-bold text-[#181111] mb-1">₹36.60</p>
+<p class="text-xs text-[#886364]">vs. previous 7 days</p>
+</div>
+<div class="bg-white p-5 rounded-xl shadow-sm border border-transparent hover:border-primary/10 transition-all group">
+<div class="flex justify-between items-start mb-2">
+<p class="text-[#886364] text-sm font-medium">Net Profit</p>
+<div class="bg-green-50 text-green-700 px-2 py-0.5 rounded text-xs font-bold flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">trending_up</span> 8%
+                            </div>
+</div>
+<p class="text-3xl font-bold text-[#181111] mb-1">₹3,890</p>
+<p class="text-xs text-[#886364]">31.2% Margin</p>
+</div>
+</div>
+<div class="bg-white rounded-xl shadow-sm p-6">
+<div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
+<div>
+<h2 class="text-lg font-bold text-[#181111]">Sales Trends</h2>
+<p class="text-sm text-[#886364]">Revenue vs Cost of Goods Sold</p>
+</div>
+<div class="bg-[#f4f0f0] p-1 rounded-lg flex text-sm font-medium">
+<button class="px-3 py-1 bg-white shadow-sm rounded-md text-[#181111]">Daily</button>
+<button class="px-3 py-1 text-[#886364] hover:text-[#181111]">Weekly</button>
+<button class="px-3 py-1 text-[#886364] hover:text-[#181111]">Monthly</button>
+</div>
+</div>
+<div class="relative h-64 w-full flex items-end gap-2 sm:gap-4 pb-6 border-b border-[#f4f0f0]">
+<div class="absolute inset-0 flex flex-col justify-between pointer-events-none">
+<div class="w-full h-px bg-[#f4f0f0] border-t border-dashed border-[#e5dcdc]"></div>
+<div class="w-full h-px bg-[#f4f0f0] border-t border-dashed border-[#e5dcdc]"></div>
+<div class="w-full h-px bg-[#f4f0f0] border-t border-dashed border-[#e5dcdc]"></div>
+<div class="w-full h-px bg-[#f4f0f0] border-t border-dashed border-[#e5dcdc]"></div>
+</div>
+<div class="group relative flex-1 h-[40%] bg-primary/20 rounded-t-sm mx-1 hover:bg-primary transition-colors cursor-pointer">
+<div class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:block bg-[#181111] text-white text-xs py-1 px-2 rounded whitespace-nowrap z-10">₹1,200</div>
+</div>
+<div class="group relative flex-1 h-[65%] bg-primary/20 rounded-t-sm mx-1 hover:bg-primary transition-colors cursor-pointer">
+<div class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:block bg-[#181111] text-white text-xs py-1 px-2 rounded whitespace-nowrap z-10">₹2,400</div>
+</div>
+<div class="group relative flex-1 h-[55%] bg-primary/20 rounded-t-sm mx-1 hover:bg-primary transition-colors cursor-pointer">
+<div class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:block bg-[#181111] text-white text-xs py-1 px-2 rounded whitespace-nowrap z-10">₹1,800</div>
+</div>
+<div class="group relative flex-1 h-[80%] bg-primary/20 rounded-t-sm mx-1 hover:bg-primary transition-colors cursor-pointer">
+<div class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:block bg-[#181111] text-white text-xs py-1 px-2 rounded whitespace-nowrap z-10">₹3,100</div>
+</div>
+<div class="group relative flex-1 h-[70%] bg-primary/20 rounded-t-sm mx-1 hover:bg-primary transition-colors cursor-pointer">
+<div class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:block bg-[#181111] text-white text-xs py-1 px-2 rounded whitespace-nowrap z-10">₹2,800</div>
+</div>
+<div class="group relative flex-1 h-[90%] bg-primary/20 rounded-t-sm mx-1 hover:bg-primary transition-colors cursor-pointer">
+<div class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:block bg-[#181111] text-white text-xs py-1 px-2 rounded whitespace-nowrap z-10">₹3,500</div>
+</div>
+<div class="group relative flex-1 h-[60%] bg-primary/20 rounded-t-sm mx-1 hover:bg-primary transition-colors cursor-pointer">
+<div class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:block bg-[#181111] text-white text-xs py-1 px-2 rounded whitespace-nowrap z-10">₹2,100</div>
+</div>
+</div>
+<div class="flex justify-between text-xs text-[#886364] mt-2 px-1">
+<span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span>
+</div>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
+<div class="bg-white rounded-xl shadow-sm p-6 lg:col-span-2">
+<div class="flex justify-between items-center mb-6">
+<h2 class="text-lg font-bold text-[#181111]">Best Selling Items</h2>
+<a class="text-primary text-sm font-semibold hover:underline" href="#">View All</a>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="border-b border-[#f4f0f0]">
+<th class="py-3 px-2 text-xs font-semibold uppercase text-[#886364] tracking-wide">Item Name</th>
+<th class="py-3 px-2 text-xs font-semibold uppercase text-[#886364] tracking-wide">Category</th>
+<th class="py-3 px-2 text-xs font-semibold uppercase text-[#886364] tracking-wide text-right">Sold</th>
+<th class="py-3 px-2 text-xs font-semibold uppercase text-[#886364] tracking-wide text-right">Revenue</th>
+</tr>
+</thead>
+<tbody class="text-sm">
+<tr class="border-b border-[#f4f0f0] last:border-0 hover:bg-gray-50 transition-colors">
+<td class="py-4 px-2">
+<div class="flex items-center gap-3">
+<div class="size-10 rounded-lg bg-gray-100 bg-cover bg-center" data-alt="Gourmet Burger Image" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBhEQVkZZPmhLo4rWixToXCSehbMkJVKBed4JNcWFbG4Xu_EspdbpHTiZOpdVSHbnD0JcJsq21FoL_hQOox2OG_p8mGBKjFk0XtXRupGahe-YOzXw9Je1JHRuLXEFL6akFxL7ya41HjLanFCYqw1JwOHeRQ79Y9I5TDtDLstltoz5WVMw5E8mS1APUB1P98-V4tqVz0qD03Y7wJTDFxP2ykV9iGfysdgTVG-S3j8RCUJ3m9Im48q2HyHYvYCRiIAcZuGntuheyp504l");'></div>
+<span class="font-medium text-[#181111]">Classic Cheeseburger</span>
+</div>
+</td>
+<td class="py-4 px-2 text-[#554444]">Food</td>
+<td class="py-4 px-2 text-right font-medium text-[#181111]">124</td>
+<td class="py-4 px-2 text-right font-bold text-[#181111]">₹1,860</td>
+</tr>
+<tr class="border-b border-[#f4f0f0] last:border-0 hover:bg-gray-50 transition-colors">
+<td class="py-4 px-2">
+<div class="flex items-center gap-3">
+<div class="size-10 rounded-lg bg-gray-100 bg-cover bg-center" data-alt="Spicy Wings Image" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuB-SqfTG1PXHdpHUIIjUTvQNlHNmbTrcIvlB18dMa5MzytrdFl7w9tAPsXKhkI4w83sJwVF37leehVuvuYXnroU9jcgSB-b7mvgK5WlZgW91QkUGrZishTfN7NB5zhkad5WK01hKP3_DEABATdMibwLmB9ui1Sm_Fkmu7qcyaEjTLH13cNKZawc4DI5pN1BZJ1oB1kA8qjPR--9OKpfHJh-YJSNCIkJP8x8JySv5Dd8pUbI_gS8AofAbMOr_u6nxB69aVqhXq_4Cv4G");'></div>
+<span class="font-medium text-[#181111]">Spicy Chicken Wings</span>
+</div>
+</td>
+<td class="py-4 px-2 text-[#554444]">Appetizer</td>
+<td class="py-4 px-2 text-right font-medium text-[#181111]">98</td>
+<td class="py-4 px-2 text-right font-bold text-[#181111]">₹1,176</td>
+</tr>
+<tr class="border-b border-[#f4f0f0] last:border-0 hover:bg-gray-50 transition-colors">
+<td class="py-4 px-2">
+<div class="flex items-center gap-3">
+<div class="size-10 rounded-lg bg-gray-100 bg-cover bg-center" data-alt="Craft Beer Image" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAGElwRMt8T0DhyC4ScYDREjgUuiIaIAg1gmaIDlBZjieQzE7zC9lnoFeREJ-GtrtsQ_aYjkXBJQngWOiUiFYIB8cLZ5d20V0yzC_FjCsQwGO3jTEYce_Fg_rSouHzvVfddIobx_3EIhsUvgq8r0QncCW5Vjq0EFPpukQEuYo9JP2BA3S_OrPJUAJmWunpLIx9N61vAyUpWs5TQNDAohdsC_9vGcEBJZqeEncPVhu6DPaRrjSpDoh6l0Bq_uOjk6RO4_0n0U7W8jVH5");'></div>
+<span class="font-medium text-[#181111]">Local IPA Draft</span>
+</div>
+</td>
+<td class="py-4 px-2 text-[#554444]">Beverage</td>
+<td class="py-4 px-2 text-right font-medium text-[#181111]">85</td>
+<td class="py-4 px-2 text-right font-bold text-[#181111]">₹680</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="bg-white rounded-xl shadow-sm p-6 flex flex-col">
+<h2 class="text-lg font-bold text-[#181111] mb-6">Sales by Category</h2>
+<div class="flex-1 flex items-center justify-center relative my-4">
+<svg class="transform -rotate-90" height="200" viewBox="0 0 42 42" width="200">
+<circle cx="21" cy="21" fill="transparent" r="15.91549430918954" stroke="#f4f0f0" stroke-width="6"></circle>
+<circle cx="21" cy="21" fill="transparent" r="15.91549430918954" stroke="#ea2a33" stroke-dasharray="50 50" stroke-dashoffset="0" stroke-width="6"></circle>
+<circle cx="21" cy="21" fill="transparent" r="15.91549430918954" stroke="#181111" stroke-dasharray="30 70" stroke-dashoffset="-50" stroke-width="6"></circle>
+<circle cx="21" cy="21" fill="transparent" r="15.91549430918954" stroke="#886364" stroke-dasharray="20 80" stroke-dashoffset="-80" stroke-width="6"></circle>
+</svg>
+<div class="absolute flex flex-col items-center">
+<span class="text-2xl font-bold text-[#181111]">₹12k</span>
+<span class="text-xs text-[#886364]">Total</span>
+</div>
+</div>
+<div class="flex flex-col gap-3 mt-4">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<div class="size-3 rounded-full bg-primary"></div>
+<span class="text-sm font-medium text-[#181111]">Food</span>
+</div>
+<span class="text-sm font-bold text-[#181111]">50%</span>
+</div>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<div class="size-3 rounded-full bg-[#181111]"></div>
+<span class="text-sm font-medium text-[#181111]">Beverage</span>
+</div>
+<span class="text-sm font-bold text-[#181111]">30%</span>
+</div>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<div class="size-3 rounded-full bg-[#886364]"></div>
+<span class="text-sm font-medium text-[#181111]">Merch/Other</span>
+</div>
+<span class="text-sm font-bold text-[#181111]">20%</span>
+</div>
+</div>
+</div>
+</div>
+<div class="lg:hidden fixed bottom-6 right-6 z-50">
+<button class="bg-primary text-white rounded-full size-14 shadow-lg shadow-primary/40 flex items-center justify-center">
+<span class="material-symbols-outlined text-[28px]">auto_awesome</span>
+</button>
+</div>
+</div>
+</div>
+</main>
+</body></html>

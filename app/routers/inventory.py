@@ -6,6 +6,7 @@ from app.schemas.inventory import (
     InventoryCreate,
     InventoryUpdate
 )
+from app.services.waste_service import auto_expire_inventory
 
 router = APIRouter(prefix="/inventory", tags=["Inventory"])
 
@@ -53,3 +54,7 @@ def delete_inventory(item_id: int, db: Session = Depends(get_db)):
     db.delete(inventory)
     db.commit()
     return {"message": "Inventory item deleted"}
+
+@router.post("/auto-expire")
+def auto_expire(db: Session = Depends(get_db)):
+    return auto_expire_inventory(db)

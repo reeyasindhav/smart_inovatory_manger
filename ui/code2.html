@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>KitchenAI - Inventory Management</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;700;900&amp;family=Noto+Sans:wght@400;500;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#ea2a33",
+                        "background-light": "#f8f6f6",
+                        "background-dark": "#211111",
+                        "surface": "#ffffff",
+                    },
+                    fontFamily: {
+                        "display": ["Be Vietnam Pro", "sans-serif"],
+                        "body": ["Be Vietnam Pro", "sans-serif"],
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #e5e7eb;
+            border-radius: 3px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #d1d5db;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-[#181111] h-screen overflow-hidden flex flex-col">
+<header class="flex-none flex items-center justify-between whitespace-nowrap border-b border-solid border-[#f4f0f0] px-6 py-3 bg-surface z-20">
+<div class="flex items-center gap-4 text-[#181111]">
+<div class="size-8 flex items-center justify-center text-primary bg-primary/10 rounded-lg">
+<span class="material-symbols-outlined text-2xl">restaurant_menu</span>
+</div>
+<h2 class="text-[#181111] text-xl font-bold leading-tight tracking-[-0.015em]">KitchenAI</h2>
+</div>
+<nav class="hidden md:flex items-center gap-8 text-sm font-medium text-gray-500">
+<a class="text-[#181111] font-bold" href="#">Inventory</a>
+<a class="hover:text-primary transition-colors" href="#">Orders</a>
+<a class="hover:text-primary transition-colors" href="#">Menu</a>
+<a class="hover:text-primary transition-colors" href="#">Suppliers</a>
+<a class="hover:text-primary transition-colors" href="#">Reports</a>
+</nav>
+<div class="flex items-center justify-end gap-4">
+<button class="flex items-center justify-center rounded-lg size-10 bg-[#f4f0f0] text-[#181111] hover:bg-[#eaeaea] transition-colors relative">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-2 right-2 size-2 bg-primary rounded-full border border-white"></span>
+</button>
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10 border border-[#f4f0f0]" data-alt="Chef profile picture" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBpRsuyXGua_tneZvLSyChjONmLMw-unIzgggl-pzLaI__xGDbE1RBJIKxlN7eJP0dBim4rugqoscO0LfKKpafVZBxLOto4SuK3xBMF-Lxm_csRwhLuLwHJIALWYLDwJQVwnh6Rru4YNvt0DlnWym3amFphVANS_fVUfndIL1QYzydwyvXac3nLp7mpYcFsUI8urCMe5RbMi2n5gXrPuO4bOxZ7un8kVGIM0eJuN74VyCkA8NOftBJFEnIwnvCgSlKT7q7KopESJ4FR");'></div>
+</div>
+</header>
+<div class="flex flex-1 overflow-hidden relative">
+<aside class="w-[400px] bg-white border-r border-[#f4f0f0] flex-col hidden lg:flex h-full shadow-lg z-10 overflow-y-auto">
+<div class="p-6 pb-4 border-b border-[#f4f0f0]">
+<div class="flex justify-between items-start mb-4">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800 uppercase tracking-wide">
+                        Meat &amp; Poultry
+                    </span>
+<button class="text-gray-400 hover:text-[#181111]">
+<span class="material-symbols-outlined">close</span>
+</button>
+</div>
+<div class="flex gap-4 mb-4">
+<div class="size-20 rounded-xl bg-gray-100 bg-cover bg-center shadow-inner" data-alt="High resolution beef patty image" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAx_G-YoXjBy6qkyaiSy18bbB9d-YO2Ku9WqlP7bZXtezDHBPGeEJpku6W7IlcPbo8vAvHwGw30XGM0LNH9yaC2d5Qgw5GQwhTU5rRZeXp24w6LvtI3-pijpmjufvMlH1FisPZrkEKk5y9v7CgLnBbvfQAceCNLE-mqCPqbHe8nybc-EeWHpKEobkTCuYeLInjGnylZYph-mpMK-zY_Vozsylbg0VQiihLfQbOJyz1gYnx-17Xs9DjYgB6XdKY6oaRoBdx6SMg4TjjQ");'></div>
+<div class="flex-1">
+<h2 class="text-2xl font-bold text-[#181111] leading-tight">Angus Beef Patties</h2>
+<p class="text-gray-500 text-sm">4oz • Frozen • Sysco</p>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-3 mt-2">
+<div class="bg-green-50 p-3 rounded-lg border border-green-100">
+<p class="text-green-800 text-xs font-bold uppercase mb-1">Current Stock</p>
+<p class="text-2xl font-black text-green-700">124 <span class="text-sm font-medium">units</span></p>
+</div>
+<div class="bg-[#f8f6f6] p-3 rounded-lg border border-gray-100">
+<p class="text-gray-500 text-xs font-bold uppercase mb-1">Cost / Unit</p>
+<p class="text-2xl font-black text-[#181111]">₹195.00</p>
+</div>
+</div>
+</div>
+<div class="p-6 border-b border-[#f4f0f0]">
+<div class="flex items-center gap-2 mb-3">
+<span class="material-symbols-outlined text-primary">auto_awesome</span>
+<h3 class="font-bold text-[#181111]">KitchenAI Insights</h3>
+</div>
+<div class="bg-gradient-to-br from-[#181111] to-[#3a2a2a] rounded-xl p-4 text-white shadow-lg relative overflow-hidden group">
+<div class="absolute top-0 right-0 p-3 opacity-10">
+<span class="material-symbols-outlined text-6xl">trending_down</span>
+</div>
+<p class="text-xs font-medium text-gray-400 uppercase tracking-wider mb-2">Usage Prediction</p>
+<p class="text-sm font-medium leading-relaxed mb-4">
+                        Based on Friday night trends, you will likely deplete this stock by <span class="text-primary font-bold">Sunday, 2:00 PM</span>.
+                    </p>
+<div class="h-16 flex items-end justify-between gap-1 mb-2">
+<div class="w-full bg-white/10 rounded-t-sm h-[40%] group-hover:bg-white/20 transition-all" title="Mon"></div>
+<div class="w-full bg-white/10 rounded-t-sm h-[35%] group-hover:bg-white/20 transition-all" title="Tue"></div>
+<div class="w-full bg-white/10 rounded-t-sm h-[60%] group-hover:bg-white/20 transition-all" title="Wed"></div>
+<div class="w-full bg-white/10 rounded-t-sm h-[50%] group-hover:bg-white/20 transition-all" title="Thu"></div>
+<div class="w-full bg-primary rounded-t-sm h-[90%] shadow-[0_0_10px_rgba(234,42,51,0.5)]" title="Fri (Projected)"></div>
+<div class="w-full bg-white/10 rounded-t-sm h-[80%] group-hover:bg-white/20 transition-all" title="Sat"></div>
+<div class="w-full bg-white/10 rounded-t-sm h-[70%] group-hover:bg-white/20 transition-all" title="Sun"></div>
+</div>
+<div class="flex justify-between text-[10px] text-gray-400 font-mono">
+<span>Mon</span><span>Fri</span><span>Sun</span>
+</div>
+</div>
+</div>
+<div class="p-6 flex-1">
+<h3 class="font-bold text-[#181111] mb-4 text-sm uppercase text-gray-400 tracking-wider">Item Details</h3>
+<div class="space-y-4">
+<div class="flex items-center justify-between py-2 border-b border-[#f4f0f0] border-dashed">
+<div class="flex items-center gap-3 text-sm text-gray-600">
+<span class="material-symbols-outlined text-gray-400">inventory_2</span>
+                            Supplier
+                        </div>
+<span class="font-medium text-[#181111] text-sm">Sysco Foods Inc.</span>
+</div>
+<div class="flex items-center justify-between py-2 border-b border-[#f4f0f0] border-dashed">
+<div class="flex items-center gap-3 text-sm text-gray-600">
+<span class="material-symbols-outlined text-gray-400">history</span>
+                            Last Restock
+                        </div>
+<span class="font-medium text-[#181111] text-sm">Oct 24, 2023</span>
+</div>
+<div class="flex items-center justify-between py-2 border-b border-[#f4f0f0] border-dashed">
+<div class="flex items-center gap-3 text-sm text-gray-600">
+<span class="material-symbols-outlined text-gray-400">event_busy</span>
+                            Expiration
+                        </div>
+<span class="font-medium text-[#181111] text-sm">Nov 15, 2023</span>
+</div>
+<div class="flex items-center justify-between py-2 border-b border-[#f4f0f0] border-dashed">
+<div class="flex items-center gap-3 text-sm text-gray-600">
+<span class="material-symbols-outlined text-gray-400">warehouse</span>
+                            Storage Loc
+                        </div>
+<span class="font-medium text-[#181111] text-sm">Freezer B, Shelf 2</span>
+</div>
+</div>
+</div>
+<div class="p-6 border-t border-[#f4f0f0] bg-gray-50 flex gap-3">
+<button class="flex-1 h-10 rounded-lg border border-gray-300 bg-white text-[#181111] text-sm font-bold hover:bg-gray-50 transition-colors">
+                    Edit Item
+                </button>
+<button class="flex-1 h-10 rounded-lg bg-primary text-white text-sm font-bold shadow-md hover:bg-red-600 transition-colors flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-lg">shopping_cart</span>
+                    Restock
+                </button>
+</div>
+</aside>
+<main class="flex-1 flex flex-col overflow-y-auto bg-background-light dark:bg-background-dark p-6">
+<div class="max-w-[1200px] w-full mx-auto flex flex-col gap-6 h-full">
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+<div class="flex flex-col gap-1">
+<h1 class="text-[#181111] text-3xl font-black leading-tight tracking-[-0.033em]">Inventory Overview</h1>
+<div class="flex items-center gap-3 text-sm font-medium text-gray-500">
+<span>Total Items: <span class="text-[#181111] font-bold">145</span></span>
+<span class="w-1 h-1 rounded-full bg-gray-300"></span>
+<span>Total Value: <span class="text-[#181111] font-bold">₹12,450</span></span>
+<span class="w-1 h-1 rounded-full bg-gray-300"></span>
+<span class="text-primary flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">warning</span>
+                                Low Stock: 4
+                            </span>
+</div>
+</div>
+<button class="flex shrink-0 cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-5 bg-primary text-white gap-2 text-sm font-bold leading-normal tracking-[0.015em] hover:bg-red-600 transition-colors shadow-sm shadow-primary/20">
+<span class="material-symbols-outlined">add</span>
+<span class="truncate">Add Inventory</span>
+</button>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+<div class="bg-white p-4 rounded-xl border border-red-100 shadow-sm flex flex-col gap-3 relative overflow-hidden group hover:border-red-200 transition-colors">
+<div class="flex items-start justify-between z-10">
+<div class="flex items-center gap-3">
+<div class="size-10 rounded-lg bg-red-50 flex items-center justify-center text-primary border border-red-100">
+<span class="material-symbols-outlined">warning</span>
+</div>
+<div>
+<h3 class="font-bold text-[#181111] text-sm">Roma Tomatoes</h3>
+<p class="text-[11px] text-primary font-bold uppercase tracking-wide">Stock Alert</p>
+</div>
+</div>
+</div>
+<p class="text-sm text-gray-600 z-10">Roma Tomatoes low on stock, purchase <span class="font-bold text-[#181111]">100 units</span> immediately.</p>
+<div class="mt-auto pt-2 flex items-center gap-2">
+<button class="flex-1 bg-primary hover:bg-red-600 text-white text-xs font-bold py-2 rounded-lg transition-colors shadow-sm shadow-primary/20 flex items-center justify-center gap-1">
+                Purchase Now
+            </button>
+<span class="text-xs font-bold text-gray-400 tabular-nums">₹9,500</span>
+</div>
+</div>
+<div class="bg-white p-4 rounded-xl border border-orange-100 shadow-sm flex flex-col gap-3 relative overflow-hidden group hover:border-orange-200 transition-colors">
+<div class="flex items-start justify-between z-10">
+<div class="flex items-center gap-3">
+<div class="size-10 rounded-lg bg-orange-50 flex items-center justify-center text-orange-500 border border-orange-100">
+<span class="material-symbols-outlined">trending_up</span>
+</div>
+<div>
+<h3 class="font-bold text-[#181111] text-sm">Sourdough Bread</h3>
+<p class="text-[11px] text-orange-500 font-bold uppercase tracking-wide">High Demand</p>
+</div>
+</div>
+</div>
+<p class="text-sm text-gray-600 z-10">Usage spike detected on weekends. Consider increasing safety stock.</p>
+<div class="mt-auto pt-2">
+<button class="w-full bg-white border border-gray-200 hover:bg-gray-50 text-[#181111] text-xs font-bold py-2 rounded-lg transition-colors">
+                View Forecast
+            </button>
+</div>
+</div>
+<div class="bg-gradient-to-br from-[#181111] to-[#2d2d2d] p-4 rounded-xl shadow-md flex flex-col justify-between relative overflow-hidden text-white">
+<div class="flex items-center gap-2 mb-2">
+<span class="material-symbols-outlined text-primary">auto_awesome</span>
+<span class="font-bold text-sm">KitchenAI Daily Brief</span>
+</div>
+<p class="text-sm text-gray-300 leading-relaxed">
+            You have <span class="text-white font-bold">4 low stock items</span>. Total restock value estimated at <span class="text-white font-bold">₹15,200</span>.
+        </p>
+<div class="flex items-center gap-2 mt-auto">
+<div class="h-1.5 w-full bg-white/10 rounded-full overflow-hidden flex-1">
+<div class="h-full bg-primary w-[35%] rounded-full"></div>
+</div>
+<span class="text-[10px] text-gray-400 font-mono">35%</span>
+</div>
+</div>
+</div>
+<div class="flex flex-col gap-4">
+<label class="flex flex-col h-12 w-full">
+<div class="flex w-full flex-1 items-stretch rounded-lg h-full bg-white shadow-sm border border-[#f4f0f0] focus-within:border-primary/50 transition-colors">
+<div class="text-gray-400 flex items-center justify-center pl-4 rounded-l-lg border-r-0">
+<span class="material-symbols-outlined">search</span>
+</div>
+<input class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-[#181111] focus:outline-0 focus:ring-0 border-none bg-transparent focus:border-none h-full placeholder:text-gray-400 px-4 pl-2 text-base font-normal leading-normal" placeholder="Search by item name, SKU, or supplier..." value=""/>
+</div>
+</label>
+<div class="flex gap-2 overflow-x-auto pb-1 no-scrollbar">
+<button class="flex h-9 shrink-0 items-center justify-center gap-x-2 rounded-lg bg-[#181111] text-white pl-4 pr-3 transition-colors shadow-sm">
+<p class="text-sm font-medium leading-normal">All Items</p>
+</button>
+<button class="flex h-9 shrink-0 items-center justify-center gap-x-2 rounded-lg bg-white border border-gray-200 text-[#181111] pl-4 pr-3 hover:bg-gray-50 transition-colors">
+<p class="text-sm font-medium leading-normal">Produce</p>
+<span class="material-symbols-outlined text-lg text-gray-400">keyboard_arrow_down</span>
+</button>
+<button class="flex h-9 shrink-0 items-center justify-center gap-x-2 rounded-lg bg-white border border-gray-200 text-[#181111] pl-4 pr-3 hover:bg-gray-50 transition-colors">
+<p class="text-sm font-medium leading-normal">Meat &amp; Poultry</p>
+<span class="material-symbols-outlined text-lg text-gray-400">keyboard_arrow_down</span>
+</button>
+<button class="flex h-9 shrink-0 items-center justify-center gap-x-2 rounded-lg bg-white border border-gray-200 text-[#181111] pl-4 pr-3 hover:bg-gray-50 transition-colors">
+<p class="text-sm font-medium leading-normal">Dairy</p>
+<span class="material-symbols-outlined text-lg text-gray-400">keyboard_arrow_down</span>
+</button>
+<button class="flex h-9 shrink-0 items-center justify-center gap-x-2 rounded-lg bg-red-50 border border-red-100 text-primary pl-4 pr-3 hover:bg-red-100 transition-colors">
+<p class="text-sm font-medium leading-normal">Low Stock</p>
+<span class="material-symbols-outlined text-lg">filter_list</span>
+</button>
+</div>
+</div>
+<div class="bg-white rounded-xl shadow-sm border border-[#f4f0f0] flex-1 overflow-hidden flex flex-col">
+<div class="overflow-x-auto flex-1">
+<table class="w-full text-left border-collapse">
+<thead class="bg-[#f8f9fa] sticky top-0 z-10">
+<tr>
+<th class="py-4 px-6 text-xs font-bold uppercase tracking-wider text-gray-500 w-[40%]">Item Name</th>
+<th class="py-4 px-6 text-xs font-bold uppercase tracking-wider text-gray-500">Category</th>
+<th class="py-4 px-6 text-xs font-bold uppercase tracking-wider text-gray-500 text-right">Stock Level</th>
+<th class="py-4 px-6 text-xs font-bold uppercase tracking-wider text-gray-500 text-right">Unit Cost</th>
+<th class="py-4 px-6 text-xs font-bold uppercase tracking-wider text-gray-500">Status</th>
+<th class="py-4 px-6 text-xs font-bold uppercase tracking-wider text-gray-500"></th>
+</tr>
+</thead>
+<tbody class="divide-y divide-[#f4f0f0]">
+<tr class="group hover:bg-red-50/30 cursor-pointer bg-red-50/10 border-l-4 border-l-primary transition-colors">
+<td class="py-3 px-6">
+<div class="flex items-center gap-4">
+<div class="size-12 rounded-lg bg-gray-100 bg-cover bg-center shrink-0" data-alt="Raw angus beef patty" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuA2wwS0276Aul49fqQqMr34ZKt8L--cSq526Ro7zWREEEW2flfHuQROe3Q-bXfC6XVYUjXayvuk5sIX21Hv4bikj2kV89EZG1b0MtSZMhfSVCdyg9c-LKyRKF-oUtCQo3P6ht6GX78HvzXRyj5gQqutECab1qEPP98USBeCEkIOtQTcb9wzRR1qE73IFYfS7bMZqA4gvhwxMSA7ohqkdW1nQ78g8VBaDUnhCf2SnjkfGQIoY5nHTlty3iFlm1zIwGkCjmxanqb2FbWr");'></div>
+<div>
+<p class="font-bold text-[#181111]">Angus Beef Patties</p>
+<p class="text-xs text-gray-500">ID: #SKU-9921</p>
+</div>
+</div>
+</td>
+<td class="py-3 px-6">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800">
+                                            Meat
+                                        </span>
+</td>
+<td class="py-3 px-6 text-right font-mono font-medium">124 <span class="text-gray-400 text-xs font-sans">units</span></td>
+<td class="py-3 px-6 text-right font-mono text-gray-600">₹195.00</td>
+<td class="py-3 px-6">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-bold bg-green-50 text-green-700">
+<span class="size-1.5 rounded-full bg-green-500"></span>
+                                            In Stock
+                                        </span>
+</td>
+<td class="py-3 px-6 text-right">
+<button class="text-gray-400 hover:text-primary p-1"><span class="material-symbols-outlined">more_vert</span></button>
+</td>
+</tr>
+<tr class="group hover:bg-gray-50 cursor-pointer transition-colors border-l-4 border-l-transparent">
+<td class="py-3 px-6">
+<div class="flex items-center gap-4">
+<div class="size-12 rounded-lg bg-gray-100 bg-cover bg-center shrink-0" data-alt="Fresh red roma tomatoes" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAReLGZz8vXRbUuy5wRaeTvg-V2pJ8tqEbdvPZrsqbNthtJtc_pDbKD-7cyz_X3CLXbKAvbbgyum1kHvSsEz_KuV9oDdD93oJsANVIO4GRaDM2mOb9h0f2YHCzrfUQZeNa7Gmk2jf3fv_1aoWvtbBVN7UMnfIq2cXQPfo2euQfJwEWEKa78ZRjF6mpZ-FwWGSqDuLXJVBqYX3B20S09shBzgfxPEUYM7dw3JXyF514fSVs6v_an7fIrSdiocMl9p7s5LshPDDmRkCT8");'></div>
+<div>
+<p class="font-bold text-[#181111]">Roma Tomatoes</p>
+<p class="text-xs text-gray-500">ID: #SKU-4402</p>
+</div>
+</div>
+</td>
+<td class="py-3 px-6">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800">
+                                            Produce
+                                        </span>
+</td>
+<td class="py-3 px-6 text-right font-mono font-medium text-primary">8 <span class="text-gray-400 text-xs font-sans">lbs</span></td>
+<td class="py-3 px-6 text-right font-mono text-gray-600">₹95.00</td>
+<td class="py-3 px-6">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-bold bg-red-50 text-primary">
+<span class="material-symbols-outlined text-[14px]">warning</span>
+                                            Low Stock
+                                        </span>
+</td>
+<td class="py-3 px-6 text-right">
+<button class="text-gray-400 hover:text-primary p-1"><span class="material-symbols-outlined">more_vert</span></button>
+</td>
+</tr>
+<tr class="group hover:bg-gray-50 cursor-pointer transition-colors border-l-4 border-l-transparent">
+<td class="py-3 px-6">
+<div class="flex items-center gap-4">
+<div class="size-12 rounded-lg bg-gray-100 bg-cover bg-center shrink-0" data-alt="Loaf of sourdough bread" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCggx51KLt-ks4NedQYoOdc6OGTRdIyXiN6gGvCizmVHlg7aOkvt8LAC9uiolq5NqRpR3PrJe1NiF_ceAEDr6u8yYsFF3cvkzsQ53Gy6to6JctLxMpwF-K-UXou1pZLQCS014oUaQ8St-dhZmlwJhFhDtW6TxpyyVi-m18RNIUV44AXTZLcq8GD4iayvlJxXQD7RLCiQJcvjt45V6YTIz2WAGwNGqXq0_Cr1z60JDIH6qHKkYllJ5ZKjCQmfj1toiRt5utIHP-9w-Uv");'></div>
+<div>
+<p class="font-bold text-[#181111]">Sourdough Bread</p>
+<p class="text-xs text-gray-500">ID: #SKU-1029</p>
+</div>
+</div>
+</td>
+<td class="py-3 px-6">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800">
+                                            Bakery
+                                        </span>
+</td>
+<td class="py-3 px-6 text-right font-mono font-medium">45 <span class="text-gray-400 text-xs font-sans">loaves</span></td>
+<td class="py-3 px-6 text-right font-mono text-gray-600">₹280.00</td>
+<td class="py-3 px-6">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-bold bg-green-50 text-green-700">
+<span class="size-1.5 rounded-full bg-green-500"></span>
+                                            In Stock
+                                        </span>
+</td>
+<td class="py-3 px-6 text-right">
+<button class="text-gray-400 hover:text-primary p-1"><span class="material-symbols-outlined">more_vert</span></button>
+</td>
+</tr>
+<tr class="group hover:bg-gray-50 cursor-pointer transition-colors border-l-4 border-l-transparent">
+<td class="py-3 px-6">
+<div class="flex items-center gap-4">
+<div class="size-12 rounded-lg bg-gray-100 bg-cover bg-center shrink-0" data-alt="Block of aged cheddar cheese" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCGswK_VUnUKWBKrzK3n6fBUlHBTi9ptPeY2EMpenieKWrihq0F5TdT77mDhcPRePLUTPtJDM1VGXPxP1Nkvx7PNQhgonxJciEsOOlE0qTDbRq_teF_bEBaZO-Msoa6ReCe8aD7hHs4BCJbvj00KE5st6Nx--67jZW1Nh1xeWyqAtztSaj__VV4gAAnd_s02QEJW_RCmigANEFXu82ihkLIbYaQozl6wWEp5NryBJLsFtf4Pt6ZwLpmcp7uh1VbLuqT8srA_VPFJrwu");'></div>
+<div>
+<p class="font-bold text-[#181111]">Aged Cheddar</p>
+<p class="text-xs text-gray-500">ID: #SKU-5521</p>
+</div>
+</div>
+</td>
+<td class="py-3 px-6">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800">
+                                            Dairy
+                                        </span>
+</td>
+<td class="py-3 px-6 text-right font-mono font-medium">12 <span class="text-gray-400 text-xs font-sans">blocks</span></td>
+<td class="py-3 px-6 text-right font-mono text-gray-600">₹1,120.00</td>
+<td class="py-3 px-6">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-bold bg-yellow-50 text-yellow-700">
+<span class="size-1.5 rounded-full bg-yellow-500"></span>
+                                            Medium
+                                        </span>
+</td>
+<td class="py-3 px-6 text-right">
+<button class="text-gray-400 hover:text-primary p-1"><span class="material-symbols-outlined">more_vert</span></button>
+</td>
+</tr>
+<tr class="group hover:bg-gray-50 cursor-pointer transition-colors border-l-4 border-l-transparent">
+<td class="py-3 px-6">
+<div class="flex items-center gap-4">
+<div class="size-12 rounded-lg bg-gray-100 bg-cover bg-center shrink-0" data-alt="Bottle of olive oil" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCFsrBwT9yNFCa-VCh0zp4CkFmVNCo-JoKksMGXrSpiYVBqTccdsU7rtD1Sg9J2tqGTBuxDrUUSnQXg22vzayB0osONlyShn1NEwqqZJ_VupP2KwlnoKXpYtrXTZyeXUBGghaB2ErGgk-g5-E_9CVxkSLy_k2L6Odn7TeJMONcbwL8moLpo5fXSRA0E2p7RWSp8B9Q-XEgv7x0lk5b9XFLueGF6oCTDBDhlLuTQzu-sIrysgBGkcJqDEzX5wXDMSP-Vi8MDUX2uy-eV");'></div>
+<div>
+<p class="font-bold text-[#181111]">Extra Virgin Olive Oil</p>
+<p class="text-xs text-gray-500">ID: #SKU-2210</p>
+</div>
+</div>
+</td>
+<td class="py-3 px-6">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800">
+                                            Pantry
+                                        </span>
+</td>
+<td class="py-3 px-6 text-right font-mono font-medium">5 <span class="text-gray-400 text-xs font-sans">cases</span></td>
+<td class="py-3 px-6 text-right font-mono text-gray-600">₹3,600.00</td>
+<td class="py-3 px-6">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-bold bg-green-50 text-green-700">
+<span class="size-1.5 rounded-full bg-green-500"></span>
+                                            In Stock
+                                        </span>
+</td>
+<td class="py-3 px-6 text-right">
+<button class="text-gray-400 hover:text-primary p-1"><span class="material-symbols-outlined">more_vert</span></button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="p-4 border-t border-[#f4f0f0] flex items-center justify-between text-sm text-gray-500">
+<p>Showing 1-5 of 145 items</p>
+<div class="flex gap-2">
+<button class="px-3 py-1 rounded border border-gray-200 hover:bg-gray-50 disabled:opacity-50">Previous</button>
+<button class="px-3 py-1 rounded border border-gray-200 hover:bg-gray-50">Next</button>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>
