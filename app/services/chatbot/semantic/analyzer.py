@@ -9,7 +9,7 @@ from app.services.chatbot.semantic.schema import (
 from app.services.chatbot.semantic.prompt import SYSTEM_PROMPT
 
 client = genai.Client(
-    api_key="AIzaSyDoj4w3eQztRlUm_MpNookv7qhN6djI_RQ"
+    api_key=".."
 )
 
 def safe_extract_json(text: str) -> dict:
